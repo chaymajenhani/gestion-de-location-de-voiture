@@ -16,7 +16,6 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
 
@@ -115,11 +114,14 @@ public class GestionVehicule {
         v.setDateEntree(new Date(sc.next()));
         System.out.println("prix de location par jour");
         v.setPrixLocationParJour(sc.nextDouble());
-        System.out.println("disponible (oui/non");
+        System.out.println("loué (oui/non)");
         if (sc.next().equals("oui")) {
             v.setDisponible(true);
+            System.out.println("numero de parking");
+            v.setIdParking(sc.nextInt());
         } else {
             v.setDisponible(false);
+            v.setIdParking(-1);
         }
         System.out.println("couleur");
         v.setCouleur(sc.next());
@@ -135,17 +137,17 @@ public class GestionVehicule {
     }
 
     public List<Vehicule> trieCategorie() {
-
-//trier la liste de vehicules selon l'age par l'implementation de la methode compare de l'interface Comparator
-        Collections.sort(vehicules, new Comparator<Vehicule>() {
+        List<Vehicule> listTrieCat = vehicules;
+        //trier la liste de vehicules selon la catégorie par l'implementation de la methode compare de l'interface Comparator
+        Collections.sort(listTrieCat, new Comparator<Vehicule>() {
             @Override
             public int compare(Vehicule v1, Vehicule v2) {
-                //comparer l'age de deux vehicules puis les reorganiser dans la liste selon l'age  par la methode Collections.sort 
-                return Integer.compare(v1.calculerAge(), v2.calculerAge());
+                //comparer la catégorie de deux vehicules puis les reorganiser dans la liste selon la catégorie  par la methode sort 
+                return v1.getCategorie().compareTo(v2.getCategorie());
 
             }
         });
-        return vehicules;
+        return listTrieCat;
     }
 
     public TreeMap<String, Integer> trieAge() {

@@ -2,6 +2,7 @@ package gestionClasses;
 
 import classes.Client;
 import classes.Location;
+import classes.Parking;
 import classes.Vehicule;
 import java.io.File;
 import java.io.FileInputStream;
@@ -51,13 +52,16 @@ public class GestionLocation {
     public void ajouter(Location l) throws IOException, ClassNotFoundException {
 
         if (locations.add(l)) {
-            //si l'ajout est effectué avec sccess on modifie la diponibilite de vehicule et on incremente le nb de location
+            //si l'ajout est effectué avec sccess on modifie la diponibilite de vehicule , on incremente le nb de location et supprimer la vehicule du parking
             GestionVehicule gv = new GestionVehicule();
+            GestionParking gp=new GestionParking();
             Vehicule v = gv.recherche(l.getVehicule().getMatricule().toString());
+            Parking p=gp.recherche(v.getIdParking());
+            p.supprimerVehicule(v);
+            gp.modifier(p);
             v.setDisponible(false);
             v.setNbLocation(v.getNbLocation() + 1);
             gv.modifier(v);
-            gv.sauvgarde();
             sauvgarde();
 
         }

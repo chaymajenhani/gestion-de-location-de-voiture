@@ -1,5 +1,7 @@
 package classes;
 
+import gestionClasses.GestionParking;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;
 
@@ -23,7 +25,9 @@ public class Parking implements Serializable {
     }
 
     public Parking() {
+        this.id = cpt++;
         listeVehicule = new ArrayList<>();
+
     }
 
     public int getId() {
@@ -54,17 +58,31 @@ public class Parking implements Serializable {
         this.listeVehicule = listeVehicule;
     }
 
-    public void ajouterVehicule(Vehicule v) {
+    public void ajouterVehicule(Vehicule v) throws IOException, ClassNotFoundException {
         listeVehicule.add(v);
+        //sauvgarder les donnees dans le fichier
+        GestionParking gp = new GestionParking();
+        gp.modifier(this);
     }
 
-    public void vider() {
+    public void vider() throws IOException, ClassNotFoundException {
         listeVehicule.clear();
+        //sauvgarder les donnees dans le fichier
+        GestionParking gp = new GestionParking();
+        gp.modifier(this);
+    }
+
+    public void supprimerVehicule(Vehicule v) throws IOException, ClassNotFoundException {
+        listeVehicule.remove(v);
+        capaciteAct--;
+        //sauvgarder les donnees dans le fichier
+        GestionParking gp = new GestionParking();
+        gp.modifier(this);
     }
 
     @Override
     public String toString() {
-        return "[capacité Actuelle=" + capaciteAct + ", capacoté maximale=" + capaciteMax + "]";
+        return "[Id= " + id + ", capacité Actuelle=" + capaciteAct + ", capacoté maximale=" + capaciteMax + "]";
     }
 
     public void afficherVehicules() {
@@ -73,11 +91,6 @@ public class Parking implements Serializable {
             System.out.println(listeVehicule.get(i).toString());
         }
 
-    }
-
-    public void supprimerVehicule(Vehicule v) {
-        listeVehicule.remove(v);
-        capaciteAct--;
     }
 
     public double moyennePrix() {

@@ -157,15 +157,16 @@ public class Main {
                                 }
                                 System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------------|");
                                 break;
-                               
-                            case 9:for (int i = 0; i < gv.trieCategorie().size(); i++) {
+
+                            case 9:
+                                for (int i = 0; i < gv.trieCategorie().size(); i++) {
                                     System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------------|");
                                     System.out.println(gv.trieCategorie().get(i).toString());
 
                                 }
                                 System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------------|");
                                 break;
-                                
+
                             case 10:
                                 for (int i = 0; i < gv.trieAge().size(); i++) {
                                     System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------------|");
@@ -174,7 +175,7 @@ public class Main {
                                 }
                                 System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------------|");
                                 break;
-                             
+
                             case 11:
                                 break;
                         }
@@ -223,7 +224,7 @@ public class Main {
                     break;
                 case 4:
                     int choixP = 0;
-                    while (choixP != 8) {
+                    while (choixP != 11) {
                         System.out.println("-----Gestion des Parkings-----");
                         System.out.println("Ajouter Parking: tapez 1");
                         System.out.println("Supprimer Parking : tapez 2");
@@ -233,7 +234,10 @@ public class Main {
                         System.out.println("Grouper les véhicules de 2 parking dans un troisième parking : tapez 6");
                         System.out.println("Vider un parking de ses véhicules en les distribuant à 2 autres parkings en fonction de\n"
                                 + "leurs catégories.: tapez 7");
-                        System.out.println("RETOUR : tapez 8");
+                        System.out.println("Ajouter vehicule au parking: tapez 8");
+                        System.out.println("Supprimer vehicule du parking : tapez 9");
+                        System.out.println("Liste des vehicules d'un parking : tapez 10");
+                        System.out.println("RETOUR : tapez 11");
                         choixP = sc.nextInt();
                         GestionParking gp = new GestionParking();
 
@@ -275,25 +279,82 @@ public class Main {
                                 }
                                 break;
                             case 6:
+                                System.out.println("donner le numéro parking à vider");
+
+                                Parking pvide = gp.recherche(sc.nextInt());
+                                System.out.println("donner le numéro du premier parking ");
+                                Parking pcat1 = gp.recherche(sc.nextInt());
+                                System.out.println("donner le numéro du deuxieme parking ");
+                                Parking pcat2 = gp.recherche(sc.nextInt());
+                                if (pvide != null && pcat1 != null && pcat2 != null) {
+                                    gp.distribuer(pvide, pcat1, pcat2);
+
+                                } else {
+                                    System.out.println("Numeros invalides");
+                                }
 
                                 break;
                             case 7:
-                                System.out.println("donner le numéro parking a vider");
+                                System.out.println("donner le numéro parking du groupement");
 
                                 Parking p1 = gp.recherche(sc.nextInt());
-                                System.out.println("donner le numéro du premier parking de groupement");
+                                System.out.println("donner le numéro du premier parking ");
                                 Parking p2 = gp.recherche(sc.nextInt());
-                                System.out.println("donner le numéro du deuxieme parking de groupement");
+                                System.out.println("donner le numéro du deuxieme parking ");
                                 Parking p3 = gp.recherche(sc.nextInt());
                                 if (p1 != null && p2 != null && p3 != null) {
-                                    gp.fusionner(p1, p2, p3);
+                                    gp.fusionner(p2, p3, p1);
                                 } else {
                                     System.out.println("Numeros invalides");
                                 }
                                 break;
                             case 8:
+                                System.out.println("donner le code du parking ");
+                                Parking pajout = gp.recherche(sc.nextInt());
+                                if (pajout != null) {
+                                    GestionVehicule gv = new GestionVehicule();
+                                    System.out.println("donner la matricule du vehicule à ajouter");
+                                    Vehicule v = gv.recherche(sc.next());
+                                    if (v != null) {
+                                        pajout.ajouterVehicule(v);
+                                    } else {
+                                        System.out.println("Vehicule Introuvable");
+                                    }
+
+                                } else {
+                                    System.out.println("Parking Introuvable");
+                                }
+                                break;
+                            case 9:
+                                System.out.println("donner le code du parking");
+                                Parking psupp = gp.recherche(sc.nextInt());
+                                if (psupp != null) {
+                                    GestionVehicule gv = new GestionVehicule();
+                                    System.out.println("donner la matricule du vehicule à supprimer");
+                                    Vehicule v = gv.recherche(sc.next());
+                                    if (v != null) {
+                                        psupp.supprimerVehicule(v);
+                                    } else {
+                                        System.out.println("Vehicule Introuvable");
+                                    }
+
+                                } else {
+                                    System.out.println("Parking Introuvable");
+                                }
+                                break;
+                            case 10:
+                                System.out.println("donner le code du parking ");
+                                Parking plist = gp.recherche(sc.nextInt());
+                                if (plist != null) {
+                                    plist.afficherVehicules();
+                                } else {
+                                    System.out.println("Parking Introuvable");
+                                }
+
                                 break;
 
+                            case 11:
+                                break;
                         }
                     }
                     break;
@@ -305,7 +366,8 @@ public class Main {
                     System.out.println("Choix Invalid");
             }
 
-        } while (choix != 5);
+        } while (choix
+                != 5);
 
     }
 }

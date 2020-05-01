@@ -2,6 +2,7 @@ package gestionClasses;
 
 import classes.Parking;
 import classes.Vehicule;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -24,7 +25,7 @@ public class GestionParking {
         if (f.exists()) {
             FileInputStream fis = new FileInputStream(f);
             if (f.length() != 0) {
-                 //si le fichier existe déja et n'est pas vide on charge les donnees dans une liste
+                //si le fichier existe déja et n'est pas vide on charge les donnees dans une liste
                 ObjectInputStream ois = new ObjectInputStream(fis);
 
                 parkings = (ArrayList) ois.readObject();
@@ -33,7 +34,7 @@ public class GestionParking {
                 fis.close();
             }
         }
-
+        
     }
     //methode pour sauvgarder les modifications sur la liste dans le fichier
     public void sauvgarde() throws FileNotFoundException, IOException {
@@ -46,8 +47,8 @@ public class GestionParking {
 
     public void ajouter(Parking p) throws IOException {
 //si le parking existe déja l'ajout ne sera pas effectue
-       
-         parkings.add(p);
+
+        parkings.add(p);
         sauvgarde();
         System.out.println("Parking a été ajouté avec succes");
     }
@@ -58,19 +59,21 @@ public class GestionParking {
             if (parkings.get(i).getId() == p.getId()) {
                 parkings.set(i, p);
                 sauvgarde();
-              
+
             }
 
         }
-    
+
     }
 //supprimer un objet de la liste 
+
     public void supprimer(Parking p) throws IOException {
-         parkings.remove(p);
-         sauvgarde();
-         System.out.println("Parking a été supprimé avec succes");
+        parkings.remove(p);
+        sauvgarde();
+        System.out.println("Parking a été supprimé avec succes");
     }
-   //methode qui retourne un objet vehicule s'il existe sinon null
+    //methode qui retourne un objet vehicule s'il existe sinon null
+
     public Parking recherche(int id) {
         for (int i = 0; i < parkings.size(); i++) {
             if (parkings.get(i).getId() == id) {
@@ -83,21 +86,29 @@ public class GestionParking {
     public List<Parking> listeParking() {
         return parkings;
     }
-    public Parking saisie(){
-    Scanner sc = new Scanner(System.in);
+
+    public Parking saisie() {
+        Scanner sc = new Scanner(System.in);
         System.out.println("donner les informations du parking");
-       Parking p=new Parking();
+        Parking p = new Parking();
         System.out.println("capcaité actuelle ");
         p.setCapaciteAct(sc.nextInt());
-       
+
         System.out.println("capacité maximale ");
         p.setCapaciteMax(sc.nextInt());
-       
-        return p;}
 
-    public void distribuer(Parking p1, Parking p2, Parking p3, ArrayList<String> l) {
+        return p;
+    }
+
+    public void distribuer(Parking p1, Parking p2, Parking p3) {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<String> cat = new ArrayList<String>();
+        System.out.println("donner les categories de distribution dans le premier parking");
+        while (sc.hasNextLine()) {
+            cat.add(sc.nextLine());
+        }
         for (int i = 0; i < p1.getCapaciteAct(); i++) {
-            if (l.contains(p1.getListeVehicule().get(i).getCategorie())) {
+            if (cat.contains(p1.getListeVehicule().get(i).getCategorie())) {
                 p2.ajouterVehicule(p1.getListeVehicule().get(i));
             } else {
                 p3.ajouterVehicule(p1.getListeVehicule().get(i));
@@ -125,7 +136,7 @@ public class GestionParking {
         System.out.println("groupement effectué avec success");
     }
 
-    public void repartition(List<Parking> lp) throws IOException, ClassNotFoundException {
+    /* public void repartition(List<Parking> lp) throws IOException, ClassNotFoundException {
 
         GestionVehicule gv = new GestionVehicule();
         List<Vehicule> listeVehicule = gv.listeVehicule();
@@ -139,6 +150,7 @@ public class GestionParking {
 
             }
         }
+        
 
-    }
+    }*/
 }
