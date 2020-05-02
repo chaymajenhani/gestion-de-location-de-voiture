@@ -20,7 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class Main {
+public class MainConsole {
 
     /**
      * @param args the command line arguments
