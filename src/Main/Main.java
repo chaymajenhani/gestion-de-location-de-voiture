@@ -10,10 +10,13 @@ import classes.MatriculeException;
 import classes.Location;
 import classes.Parking;
 import classes.Vehicule;
+import com.itextpdf.text.DocumentException;
 import gestionClasses.GestionClient;
 import gestionClasses.GestionLocation;
 import gestionClasses.GestionParking;
 import gestionClasses.GestionVehicule;
+import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -22,7 +25,7 @@ public class Main {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws IOException, ClassNotFoundException, MatriculeException {
+    public static void main(String[] args) throws IOException, ClassNotFoundException, MatriculeException, DocumentException {
 
         //launch(args);
         int choix = 0;
@@ -183,13 +186,14 @@ public class Main {
                     break;
                 case 3:
                     int choixL = 0;
-                    while (choixL != 5) {
+                    while (choixL != 6) {
                         System.out.println("-----Gestion des Locations----");
                         System.out.println("Ajouter Location: tapez 1");
                         System.out.println("Supprimer Location : tapez 2");
                         System.out.println("Liste des Locations : tapez 3");
                         System.out.println("Recherche Location : tapez 4");
-                        System.out.println("RETOUR : tapez 5");
+                        System.out.println("Imprimer Contract : tapez 5");
+                        System.out.println("RETOUR : tapez 6");
                         choixL = sc.nextInt();
                         GestionLocation gl = new GestionLocation();
 
@@ -218,6 +222,16 @@ public class Main {
                                 } else {
                                     System.out.println("Location Introuvable");
                                 }
+                                break;
+                            case 5:  System.out.println("donner le code de location");
+                                Location l=gl.recherche(sc.nextInt());
+                                if (l != null) {
+                                    l.afficherContrat();
+                                } else {
+                                    System.out.println("Location Introuvable");
+                                }
+                                break;
+                            case 6:
                                 break;
                         }
                     }
@@ -366,8 +380,7 @@ public class Main {
                     System.out.println("Choix Invalid");
             }
 
-        } while (choix
-                != 5);
+        } while (choix != 5);
 
     }
 }

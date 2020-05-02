@@ -12,6 +12,8 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import javafx.scene.text.Text;
+import java.awt.Desktop;
+import java.io.File;
 
 public class Location implements Serializable {
 
@@ -35,7 +37,7 @@ public class Location implements Serializable {
 
     public Location(Client client, Vehicule vehicule, Date dateDebut, Date dateFin,
             boolean chauffeur, String typePaiement, float prop) {
-        
+
         this.code = cpt++;
         this.client = client;
         this.vehicule = vehicule;
@@ -117,7 +119,7 @@ public class Location implements Serializable {
 
     @Override
     public String toString() {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); 
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         return "[code=" + code + ", client=" + client + ", vehicule=" + vehicule + ", dateDebut=" + formatter.format(dateDebut) + ", dateFin=" + formatter.format(dateFin) + ", chauffeur=" + chauffeur
                 + ", prop=" + prop + ", typePaiement=" + typePaiement + "]";
     }
@@ -126,7 +128,7 @@ public class Location implements Serializable {
     public void afficherContrat() throws DocumentException, IOException {
         Document document = new Document();
         try {
-            PdfWriter pdfWriter = PdfWriter.getInstance(document, new FileOutputStream("Contrat.pdf"));
+            PdfWriter pdfWriter = PdfWriter.getInstance(document, new FileOutputStream("Contrat Numero " + code + ".pdf"));
             pdfWriter.setViewerPreferences(PdfWriter.PageLayoutTwoColumnLeft);
             document.open();
             Paragraph p = new Paragraph();
@@ -164,14 +166,20 @@ public class Location implements Serializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        File f = new File("Contrat Numero " + code + ".pdf");
+      //  System.out.println(f.exists());
+        if (f.exists()) {
+            // ouvrir le fichier du contrat
+            Desktop.getDesktop().open(f);
+        }
     }
 
     public double calculeMontantTotal() {
         //calculer la difference entre les dates en ms 
         long diff = dateFin.getTime() - dateDebut.getTime();
         //convertir la difference en jours
-        int dureeJours=(int) diff / (24 * 60 * 60 * 1000);
-        
+        int dureeJours = (int) diff / (24 * 60 * 60 * 1000);
+
         return dureeJours * vehicule.getPrixLocationParJour();
     }
 
