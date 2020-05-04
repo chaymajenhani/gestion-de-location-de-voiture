@@ -3,6 +3,7 @@ package classes;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -14,11 +15,13 @@ import java.util.*;
 import javafx.scene.text.Text;
 import java.awt.Desktop;
 import java.io.File;
+import java.net.URL;
 import java.util.concurrent.TimeUnit;
+import javafx.scene.image.Image;
 
 public class Location implements Serializable {
 
-    private static int cpt = 0;
+    public static int cpt = 0;
 
     private int code;
 
@@ -39,7 +42,7 @@ public class Location implements Serializable {
     public Location(Client client, Vehicule vehicule, Date dateDebut, Date dateFin,
             boolean chauffeur, String typePaiement, float prop) {
 
-        this.code = cpt++;
+        this.code = ++cpt;
         this.client = client;
         this.vehicule = vehicule;
         this.dateDebut = dateDebut;
@@ -51,7 +54,7 @@ public class Location implements Serializable {
     }
 
     public Location() {
-        this.code = cpt++;
+        this.code = ++cpt;
     }
 
     public int getCode() {
@@ -121,30 +124,36 @@ public class Location implements Serializable {
     @Override
     public String toString() {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        return "[code=" + code + ", client= " + client.getCin()+" "+ client.getNom()+" "+client.getPrenom() + ", vehicule=" + vehicule.getMatricule().toString() + ", dateDebut=" + formatter.format(dateDebut) + ", dateFin=" + formatter.format(dateFin) + ", chauffeur=" + chauffeur
+        return "[code=" + code + ", client= " + client.getCin() + " " + client.getNom() + " " + client.getPrenom() + ", vehicule=" + vehicule.getMatricule().toString() + ", dateDebut=" + formatter.format(dateDebut) + ", dateFin=" + formatter.format(dateFin) + ", chauffeur=" + chauffeur
                 + ", prop=" + prop + ", typePaiement=" + typePaiement + "]";
     }
 //dans la classe location-->methode afficherContrat()
 
     public void afficherContrat() throws DocumentException, IOException {
+        //creer un document
         Document document = new Document();
         try {
+            //creer un fichier pdf a partir du contenu du document
             PdfWriter pdfWriter = PdfWriter.getInstance(document, new FileOutputStream("Contrat Numero " + code + ".pdf"));
-            pdfWriter.setViewerPreferences(PdfWriter.PageLayoutTwoColumnLeft);
+            // pdfWriter.setViewerPreferences(PdfWriter.PageLayoutTwoColumnLeft);
             document.open();
-            Paragraph p = new Paragraph();
+            Paragraph p = new Paragraph();;
+//            Image logo = new Image(".\\Views\\img\\logo.jpg");
+            //          document.add((Element) logo);
             p.add(Chunk.NEWLINE);
-            p.add(new Paragraph("                  Contrat"));
+            p.add(new Paragraph("-------------------------------------"));
+            p.add(new Paragraph(" Contrat de Location de Voiture "));
+            p.add(new Paragraph("-------------------------------------"));
             p.add(Chunk.NEWLINE);
-            p.add(new Paragraph("Contrat numero: " + String.valueOf(code) + "," + new Date()));
+            p.add(new Paragraph("Contrat numero: " + String.valueOf(code) + " , " + new Date()));
             p.add(Chunk.NEWLINE);
-            p.add(new Paragraph("Propriétaire du véhicule:ENSIcars"));
+            p.add(new Paragraph("Propriétaire du véhicule: ENSIcars"));
             p.add(Chunk.NEWLINE);
-            p.add(new Paragraph("nom:" + client.getNom() + " prenom:" + client.getPrenom() + "cin" + String.valueOf(client.getCin())));
+            p.add(new Paragraph("nom: " + client.getNom() + " prenom: " + client.getPrenom() + " cin " + String.valueOf(client.getCin())));
             p.add(Chunk.NEWLINE);
             p.add(new Paragraph("Marque: " + vehicule.getMarque()));
             p.add(Chunk.NEWLINE);
-            p.add(new Paragraph("Matricule:" + vehicule.getMatricule().toString()));
+            p.add(new Paragraph("Matricule:  " + vehicule.getMatricule().toString()));
             p.add(Chunk.NEWLINE);
             p.add(new Paragraph(
                     "Le propriétaire s'engage à mettre à la disposition du locataire"
@@ -154,34 +163,43 @@ public class Location implements Serializable {
                     + "   , jeu de"
                     + "clés , corde de remorquage"));
             p.add(Chunk.NEWLINE);
-            p.add(new Paragraph("Durée Du Contrat:"));
+            p.add(new Paragraph("Durée Du Contrat:  "));
             p.add(Chunk.NEWLINE);
-            p.add(new Paragraph("Date de debut:" + String.valueOf(dateDebut) + "   Date de fin:" + String.valueOf(dateFin)));
+            p.add(new Paragraph("Date de debut: " + String.valueOf(dateDebut) + "   Date de fin: " + String.valueOf(dateFin)));
             p.add(Chunk.NEWLINE);
             p.add(new Paragraph("Prix de Location:" + String.valueOf(calculeMontantTotal())));
             p.add(Chunk.NEWLINE);
-            p.add(new Paragraph("contrat prend fin à la date d&#39;expiration sans préavis écrit."));
+            p.add(new Paragraph("contrat prend fin à la date  " + String.valueOf(dateFin) + " expiration sans préavis écrit."));
 
             document.add(p);
             document.close();
+            pdfWriter.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
         File f = new File("Contrat Numero " + code + ".pdf");
-      //  System.out.println(f.exists());
+        //  System.out.println(f.exists());
         if (f.exists()) {
+
             // ouvrir le fichier du contrat
             Desktop.getDesktop().open(f);
         }
     }
 
     public double calculeMontantTotal() {
+        double x = 0;
+        double mt = 0;
+
         //calculer la difference entre les dates en ms 
         long diff = Math.abs(dateFin.getTime() - dateDebut.getTime());
         //convertir la difference en jours
-       int dureeJours=(int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+        int dureeJours = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+        if (chauffeur = true) {
+            x = 1;
+        }
+        mt = (dureeJours * (vehicule.getPrixLocationParJour() + x * 50)) + prop * 100;
+        return mt;
 
-        return dureeJours * vehicule.getPrixLocationParJour();
     }
 
 }

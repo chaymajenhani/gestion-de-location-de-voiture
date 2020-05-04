@@ -18,9 +18,9 @@ import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class GestionLocation {
-    
+
     List<Location> locations;
-    
+
     public GestionLocation() throws IOException, ClassNotFoundException {
         locations = new ArrayList<>();
         File f = new File("location.txt");
@@ -30,52 +30,51 @@ public class GestionLocation {
             if (f.length() != 0) {
                 //si le fichier existe déja et n'est pas vide on charge les donnees dans une liste
                 ObjectInputStream ois = new ObjectInputStream(fis);
-                
+
                 locations = (ArrayList) ois.readObject();
-                
+                //reinitialiser le compteur de la classe location pour eviter la redondance du code a chaque execution de l'application
+                Location.cpt = locations.get(locations.size() - 1).getCode();
+
                 ois.close();
                 fis.close();
             }
         }
-        
+
     }
 
     //methode pour sauvgarder les modifications sur la liste dans le fichier
     public void sauvgarde() throws FileNotFoundException, IOException {
-        
+
         FileOutputStream fos = new FileOutputStream("location.txt");
         ObjectOutputStream oos = new ObjectOutputStream(fos);
         oos.writeObject(locations);
         oos.close();
         fos.close();
     }
-    
+
     public void ajouter(Location l) throws IOException, ClassNotFoundException {
-        
-        
-            //on modifie la diponibilite de vehicule ,on incremente le nb de location et on supprime la vehicule du parking
-            GestionVehicule gv = new GestionVehicule();
-            GestionParking gp = new GestionParking();
-            Vehicule v = gv.recherche(l.getVehicule().getMatricule().toString());
-          //  System.out.println(v);
-           // Parking p = gp.recherche(v.getIdParking());
-          //  p.supprimerVehicule(v);
-          //  gp.modifier(p);
-            v.setNbLocation(v.getNbLocation() + 1);
-            Date auj = new Date();
-            if (auj.before(l.getDateFin())) {
-                v.setDisponible(false);
-            }
-            
-            gv.modifier(v);
-            //System.out.println(v);
-            locations.add(l);
-            sauvgarde();
-            
-        
-        
+
+        //on modifie la diponibilite de vehicule ,on incremente le nb de location et on supprime la vehicule du parking
+        GestionVehicule gv = new GestionVehicule();
+        GestionParking gp = new GestionParking();
+        Vehicule v = gv.recherche(l.getVehicule().getMatricule().toString());
+        //  System.out.println(v);
+        Parking p = gp.recherche(v.getIdParking());
+        p.supprimerVehicule(v);
+        gp.modifier(p);
+        v.setNbLocation(v.getNbLocation() + 1);
+        Date auj = new Date();
+        if (auj.before(l.getDateFin())) {
+            v.setDisponible(false);
+        }
+
+        gv.modifier(v);
+        //System.out.println(v);
+        locations.add(l);
+        sauvgarde();
+
     }
-    
+
     public void modifier(Location l) throws Exception {
         //parcourir la liste et modifer l'objet par les nouveaux donnees d'objet qui a le meme code
         for (int i = 0; i < locations.size(); i++) {
@@ -83,11 +82,11 @@ public class GestionLocation {
                 locations.set(i, l);
                 sauvgarde();
                 System.out.println("Location a été ajouté avec succes");
-                
+
             }
-            
+
         }
-        
+
     }
 //supprimer un objet de la liste 
 
@@ -127,7 +126,7 @@ public class GestionLocation {
             }
         }
         return clients_6mois;
-        
+
     }
 
     //saisie des donnees d'une location
@@ -155,11 +154,11 @@ public class GestionLocation {
         l.setTypePaiement(sc.next());
         System.out.println("pourcentage de plein");
         l.setProp(sc.nextFloat());
-        
+
         return l;
-        
+
     }
-    
+
     public List<Client> alerte() {
         Date auj = new Date();
         List<Client> l = new ArrayList<>();

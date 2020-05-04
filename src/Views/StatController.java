@@ -40,6 +40,7 @@ public class StatController implements Initializable {
         // TODO
         try {
             // TODO
+            
             GestionVehicule gv = new GestionVehicule();
             GestionClient gc = new GestionClient();
             GestionLocation gl = new GestionLocation();

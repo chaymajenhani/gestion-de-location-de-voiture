@@ -103,7 +103,7 @@ public class LocationController implements Initializable {
 
             GestionVehicule gv = new GestionVehicule();
             for (int i = 0; i < gv.listeVehicule().size(); i++) {
-                if (gv.listeVehicule().get(i).isDisponible()) {
+                if (gv.listeVehicule().get(i).isDisponible() && (gv.listeVehicule().get(i).getIdParking()!=-1)) {
                     vehiculeField.getItems().add(gv.listeVehicule().get(i).getMatricule().toString());
                 }
             }

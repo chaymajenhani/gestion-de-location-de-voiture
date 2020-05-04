@@ -13,7 +13,7 @@
             <Button layoutX="15.0" layoutY="151.0" mnemonicParsing="false" onAction="#AccueilView" prefHeight="43.0" prefWidth="219.0" text="Accueil" />
             <Button fx:id="clientBtn" layoutX="14.0" layoutY="214.0" mnemonicParsing="false" onAction="#ClientView" prefHeight="43.0" prefWidth="219.0" text="Gestion des Clients" />
             <Button layoutX="15.0" layoutY="276.0" mnemonicParsing="false" onAction="#VehiculeView" prefHeight="43.0" prefWidth="219.0" text="Gestion des Vehicules" />
-            <Button layoutX="15.0" layoutY="340.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="219.0" text="Gestion des Parkings" />
+            <Button layoutX="15.0" layoutY="340.0" mnemonicParsing="false" onAction="#ParkingView" prefHeight="43.0" prefWidth="219.0" text="Gestion des Parkings" />
             <Button layoutX="14.0" layoutY="405.0" mnemonicParsing="false" onAction="#LocationView" prefHeight="43.0" prefWidth="219.0" text="Gestion des locations" />
             <ImageView fx:id="logo" fitHeight="130.0" fitWidth="219.0" layoutX="15.0" layoutY="6.0" pickOnBounds="true" smooth="false">
                <image>

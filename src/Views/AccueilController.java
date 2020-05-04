@@ -5,21 +5,13 @@
  */
 package Views;
 
-import gestionClasses.GestionClient;
-import gestionClasses.GestionLocation;
-import gestionClasses.GestionVehicule;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -37,7 +29,7 @@ public class AccueilController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
         try {
             Parent root = FXMLLoader.load(getClass().getResource("Stat.fxml"));
             rightScene.getChildren().setAll(root);
@@ -75,6 +67,14 @@ public class AccueilController implements Initializable {
     private void VehiculeView() throws IOException {
 
         Parent root = FXMLLoader.load(getClass().getResource("Vehicule.fxml"));
+        rightScene.getChildren().setAll(root);
+
+    }
+
+    @FXML
+    private void ParkingView() throws IOException {
+
+        Parent root = FXMLLoader.load(getClass().getResource("Parking.fxml"));
         rightScene.getChildren().setAll(root);
 
     }

@@ -44,7 +44,7 @@ public class Vehicule implements Serializable {
 
     public Vehicule() {
        nbLocation=0;
-       disponible=false;
+       disponible=true;
        idParking=-1;
       
     }

@@ -4,40 +4,60 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane fx:id="rightScene" minHeight="0.0" minWidth="0.0" prefHeight="506.0" prefWidth="837.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Views.StatController">
+<AnchorPane fx:id="rightScene" minHeight="0.0" minWidth="0.0" prefHeight="506.0" prefWidth="837.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Views.StatController">
    <children>
-      <ImageView fitHeight="143.0" fitWidth="167.0" layoutX="40.0" layoutY="14.0" pickOnBounds="true">
+      <ImageView fitHeight="296.0" fitWidth="861.0" layoutX="-11.0" layoutY="221.0" pickOnBounds="true">
          <image>
-            <Image url="@img/car.png" />
+            <Image url="@img/background.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="138.0" fitWidth="200.0" layoutX="294.0" layoutY="211.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@img/client.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="143.0" fitWidth="173.0" layoutX="562.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@img/21_Car_rental-512.png" />
-         </image>
-      </ImageView>
-      <Label fx:id="nbVeh" layoutX="31.0" layoutY="171.0" text="nbVeh">
-         <font>
-            <Font name="Arial Bold" size="32.0" />
-         </font>
-      </Label>
-      <Label fx:id="nbCl" layoutX="319.0" layoutY="365.0" text="nbCl">
-         <font>
-            <Font name="Arial Bold" size="32.0" />
-         </font>
-      </Label>
-      <Label fx:id="nbLoc" layoutX="548.0" layoutY="181.0" text="nbLoc">
-         <font>
-            <Font name="Arial Bold" size="32.0" />
-         </font>
-      </Label>
+      <GridPane layoutY="22.0" prefHeight="226.0" prefWidth="837.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="278.0" minWidth="10.0" prefWidth="270.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="274.0" minWidth="10.0" prefWidth="253.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="314.0" minWidth="10.0" prefWidth="309.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="167.0" minHeight="10.0" prefHeight="167.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="138.0" minHeight="10.0" prefHeight="87.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <ImageView fitHeight="143.0" fitWidth="167.0" pickOnBounds="true" GridPane.halignment="CENTER">
+               <image>
+                  <Image url="@img/car.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="129.0" fitWidth="173.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@img/client.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="131.0" fitWidth="171.0" pickOnBounds="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@img/car%20rental.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="nbLoc" text="nbLoc" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Arial Bold" size="32.0" />
+               </font>
+            </Label>
+            <Label fx:id="nbCl" text="nbCl" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Arial Bold" size="32.0" />
+               </font>
+            </Label>
+            <Label fx:id="nbVeh" text="nbVeh" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Arial Bold" size="32.0" />
+               </font>
+            </Label>
+         </children>
+      </GridPane>
    </children>
 </AnchorPane>

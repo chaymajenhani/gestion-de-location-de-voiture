@@ -8,7 +8,7 @@ import java.util.*;
 
 public class Parking implements Serializable {
 
-    private static int cpt = 0;
+    public static int cpt = 0;
     private int id;
 
     private int capaciteMax;
@@ -18,7 +18,7 @@ public class Parking implements Serializable {
     private List<Vehicule> listeVehicule;
 
     public Parking(int capaciteMax, int capaciteAct) {
-        this.id = cpt++;
+        this.id = ++cpt;
         this.capaciteMax = capaciteMax;
         this.capaciteAct = capaciteAct;
         listeVehicule = new ArrayList<>();
@@ -26,7 +26,7 @@ public class Parking implements Serializable {
     }
 
     public Parking() {
-        this.id = cpt++;
+        this.id = ++cpt;
         listeVehicule = new ArrayList<>();
 
     }
@@ -64,7 +64,7 @@ public class Parking implements Serializable {
         capaciteAct++;
         //sauvgarder les donnees dans le fichier
         GestionParking gp = new GestionParking();
-        GestionVehicule gv=new GestionVehicule();
+        GestionVehicule gv = new GestionVehicule();
         v.setIdParking(this.id);
         gv.modifier(v);
         gp.modifier(this);
@@ -72,7 +72,7 @@ public class Parking implements Serializable {
 
     public void vider() throws IOException, ClassNotFoundException {
         listeVehicule.clear();
-        capaciteAct=0;
+        capaciteAct = 0;
         //sauvgarder les donnees dans le fichier
         GestionParking gp = new GestionParking();
         gp.modifier(this);
@@ -83,7 +83,7 @@ public class Parking implements Serializable {
         capaciteAct--;
         //sauvgarder les donnees dans le fichier
         GestionParking gp = new GestionParking();
-        GestionVehicule gv=new GestionVehicule();
+        GestionVehicule gv = new GestionVehicule();
         v.setIdParking(-1);
         gv.modifier(v);
         gp.modifier(this);
@@ -91,7 +91,7 @@ public class Parking implements Serializable {
 
     @Override
     public String toString() {
-        return "Id= " + id + ", capacité Actuelle=" + capaciteAct + ", capacoté maximale=" + capaciteMax ;
+        return "Id= " + id + ", capacité Actuelle=" + capaciteAct + ", capacoté maximale=" + capaciteMax;
     }
 
     public void afficherVehicules() {

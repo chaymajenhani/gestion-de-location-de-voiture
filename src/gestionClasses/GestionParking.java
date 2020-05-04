@@ -1,5 +1,6 @@
 package gestionClasses;
 
+import classes.Location;
 import classes.Parking;
 
 import java.io.File;
@@ -28,6 +29,8 @@ public class GestionParking {
                 ObjectInputStream ois = new ObjectInputStream(fis);
 
                 parkings = (ArrayList) ois.readObject();
+                //reinitialiser le compteur de la classe parking pour eviter la redondance de l'id a chaque execution de l'application 
+                Parking.cpt = parkings.get(parkings.size() - 1).getId();
 
                 ois.close();
                 fis.close();
