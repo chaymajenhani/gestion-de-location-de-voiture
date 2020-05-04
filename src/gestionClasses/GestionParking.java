@@ -1,7 +1,6 @@
 package gestionClasses;
 
 import classes.Parking;
-import classes.Vehicule;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -34,8 +33,9 @@ public class GestionParking {
                 fis.close();
             }
         }
-        
+
     }
+
     //methode pour sauvgarder les modifications sur la liste dans le fichier
     public void sauvgarde() throws FileNotFoundException, IOException {
         FileOutputStream fos = new FileOutputStream("parking.txt");
@@ -50,7 +50,7 @@ public class GestionParking {
 
         parkings.add(p);
         sauvgarde();
-        System.out.println("Parking a été ajouté avec succes");
+        System.out.println("Parking a été ajouté avec success");
     }
 
     public void modifier(Parking p) throws IOException {
@@ -83,6 +83,7 @@ public class GestionParking {
         return null;
     }
 //retourne la liste des parkings
+
     public List<Parking> listeParking() {
         return parkings;
     }
@@ -91,50 +92,48 @@ public class GestionParking {
         Scanner sc = new Scanner(System.in);
         System.out.println("donner les informations du parking");
         Parking p = new Parking();
-        System.out.println("capcaité actuelle ");
-        p.setCapaciteAct(sc.nextInt());
-
+        p.setCapaciteAct(0);
         System.out.println("capacité maximale ");
         p.setCapaciteMax(sc.nextInt());
 
         return p;
     }
 
-
     public void distribuer(Parking p1, Parking p2, Parking p3) throws IOException, ClassNotFoundException {
         Scanner sc = new Scanner(System.in);
-        ArrayList<String> cat = new ArrayList<String>();
-        System.out.println("donner les categories de distribution dans le premier parking");
-        while (sc.hasNextLine()) {
+        ArrayList<String> cat = new ArrayList<>();
+        System.out.println("donner les categories de distribution dans le premier parking, tapez fin pour terminer la saisie");
+        while (sc.hasNextLine() && !sc.next().equals("fin")) {
             cat.add(sc.nextLine());
         }
         for (int i = 0; i < p1.getCapaciteAct(); i++) {
+
             if (cat.contains(p1.getListeVehicule().get(i).getCategorie())) {
                 p2.ajouterVehicule(p1.getListeVehicule().get(i));
+
             } else {
                 p3.ajouterVehicule(p1.getListeVehicule().get(i));
 
             }
         }
-        p3.vider();
+        p1.vider();
+        System.out.println("vider");
+
     }
 
     public void fusionner(Parking p1, Parking p2, Parking p3) throws IOException, ClassNotFoundException {
 
-        int i = 0;
-        while (p1.getCapaciteAct() != 0) {
-
+        for (int i = 0; i < p1.getCapaciteAct(); i++) {
             p3.ajouterVehicule(p1.getListeVehicule().get(i));
-            i++;
             p1.supprimerVehicule(p1.getListeVehicule().get(i));
+            i++;
         }
-        i = 0;
-        while (p2.getCapaciteAct() != 0) {
+        for (int i = 0; i < p2.getCapaciteAct(); i++) {
 
             p3.ajouterVehicule(p2.getListeVehicule().get(i));
-            i++;
             p2.supprimerVehicule(p2.getListeVehicule().get(i));
         }
+
         System.out.println("groupement effectué avec success");
     }
 

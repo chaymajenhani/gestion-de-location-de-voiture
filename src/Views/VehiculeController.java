@@ -1,9 +1,8 @@
-package Main;
+package Views;
 
 import classes.Matricule;
 import classes.MatriculeException;
 import classes.Vehicule;
-import gestionClasses.GestionClient;
 import gestionClasses.GestionVehicule;
 import java.io.IOException;
 import javafx.fxml.FXML;
@@ -12,16 +11,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 
 public class VehiculeController implements Initializable {
@@ -62,16 +55,12 @@ public class VehiculeController implements Initializable {
     private TextField CouleurField;
     @FXML
     private TextField Prix_locationField;
-    @FXML
-    private TextField Nb_locationField;
+
     @FXML
     private TextField CatégorieField;
     @FXML
     private DatePicker DateEntréeField;
-    @FXML
-    private TextField IdParkingField;
-    @FXML
-    private ComboBox DisponibiliteField;
+
     @FXML
     private TextField KilométrageField;
 
@@ -96,19 +85,20 @@ public class VehiculeController implements Initializable {
         } catch (ClassNotFoundException ex) {
             System.out.println(ex.getMessage());
         }
-        DisponibiliteField.setValue("non");
-        DisponibiliteField.getItems().addAll("oui", "non");
 
     }
 
     public void newCarButtonPushed() throws MatriculeException, IOException, ClassNotFoundException {
         Date dateE = new Date(DateEntréeField.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-        boolean dispo = false;
-        if (DisponibiliteField.getValue().equals("oui")) {
-            dispo = true;
-        }
-        Vehicule newcar = new Vehicule(new Matricule(paysField.getText(), Integer.parseInt(serieField.getText()), Integer.parseInt(numEnregField.getText())), dateE, Double.parseDouble(Prix_locationField.getText()),
-                Integer.parseInt(Nb_locationField.getText()), dispo, CouleurField.getText(), MarqueField.getText(), CatégorieField.getText(), Integer.parseInt(KilométrageField.getText()), Integer.parseInt(IdParkingField.getText()));
+
+        Vehicule newcar = new Vehicule();
+        newcar.setMatricule(new Matricule(paysField.getText(), Integer.parseInt(serieField.getText()), Integer.parseInt(numEnregField.getText())));
+        newcar.setDateEntree(dateE);
+        newcar.setPrixLocationParJour(Double.parseDouble(Prix_locationField.getText()));
+        newcar.setCouleur(CouleurField.getText());
+        newcar.setMarque(MarqueField.getText());
+        newcar.setCategorie(CatégorieField.getText());
+        newcar.setKilometrage(Integer.parseInt(KilométrageField.getText()));
 
         //Get all the items from the table as a list, then add the new car to the list
         tableView.getItems().add(newcar);

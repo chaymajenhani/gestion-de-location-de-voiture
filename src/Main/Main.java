@@ -5,7 +5,6 @@
  */
 package Main;
 
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,8 +15,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("Client.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/Views/Accueil.fxml"));
         Scene scene = new Scene(root);
+        stage.setTitle("Gestion de Location des Voitures");
         stage.setScene(scene);
         stage.show();
     }
@@ -25,9 +25,9 @@ public class Main extends Application {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args)  {
+    public static void main(String[] args) {
         launch(args);
 
-
     }
+
 }

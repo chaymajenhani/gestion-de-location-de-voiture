@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<SplitPane dividerPositions="0.23139745916515425" prefHeight="516.0" prefWidth="1104.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Views.AccueilController">
+  <items>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="486.0" prefWidth="252.0">
+         <children>
+            <Button layoutX="15.0" layoutY="151.0" mnemonicParsing="false" onAction="#AccueilView" prefHeight="43.0" prefWidth="219.0" text="Accueil" />
+            <Button fx:id="clientBtn" layoutX="14.0" layoutY="214.0" mnemonicParsing="false" onAction="#ClientView" prefHeight="43.0" prefWidth="219.0" text="Gestion des Clients" />
+            <Button layoutX="15.0" layoutY="276.0" mnemonicParsing="false" onAction="#VehiculeView" prefHeight="43.0" prefWidth="219.0" text="Gestion des Vehicules" />
+            <Button layoutX="15.0" layoutY="340.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="219.0" text="Gestion des Parkings" />
+            <Button layoutX="14.0" layoutY="405.0" mnemonicParsing="false" onAction="#LocationView" prefHeight="43.0" prefWidth="219.0" text="Gestion des locations" />
+            <ImageView fx:id="logo" fitHeight="130.0" fitWidth="219.0" layoutX="15.0" layoutY="6.0" pickOnBounds="true" smooth="false">
+               <image>
+                  <Image url="@img/logo.jpg" />
+               </image>
+            </ImageView>
+            <Button layoutX="14.0" layoutY="463.0" mnemonicParsing="false" onAction="#Quitter" prefHeight="43.0" prefWidth="219.0" text="Quitter" />
+         </children>
+      </AnchorPane>
+    <AnchorPane fx:id="rightScene" minHeight="0.0" minWidth="0.0" prefHeight="506.0" prefWidth="837.0" />
+  </items>
+</SplitPane>

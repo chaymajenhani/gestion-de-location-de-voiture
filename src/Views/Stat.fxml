@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane fx:id="rightScene" minHeight="0.0" minWidth="0.0" prefHeight="506.0" prefWidth="837.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Views.StatController">
+   <children>
+      <ImageView fitHeight="143.0" fitWidth="167.0" layoutX="40.0" layoutY="14.0" pickOnBounds="true">
+         <image>
+            <Image url="@img/car.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="138.0" fitWidth="200.0" layoutX="294.0" layoutY="211.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/client.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="143.0" fitWidth="173.0" layoutX="562.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/21_Car_rental-512.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="nbVeh" layoutX="31.0" layoutY="171.0" text="nbVeh">
+         <font>
+            <Font name="Arial Bold" size="32.0" />
+         </font>
+      </Label>
+      <Label fx:id="nbCl" layoutX="319.0" layoutY="365.0" text="nbCl">
+         <font>
+            <Font name="Arial Bold" size="32.0" />
+         </font>
+      </Label>
+      <Label fx:id="nbLoc" layoutX="548.0" layoutY="181.0" text="nbLoc">
+         <font>
+            <Font name="Arial Bold" size="32.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

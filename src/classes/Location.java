@@ -14,6 +14,7 @@ import java.util.*;
 import javafx.scene.text.Text;
 import java.awt.Desktop;
 import java.io.File;
+import java.util.concurrent.TimeUnit;
 
 public class Location implements Serializable {
 
@@ -120,7 +121,7 @@ public class Location implements Serializable {
     @Override
     public String toString() {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        return "[code=" + code + ", client=" + client + ", vehicule=" + vehicule + ", dateDebut=" + formatter.format(dateDebut) + ", dateFin=" + formatter.format(dateFin) + ", chauffeur=" + chauffeur
+        return "[code=" + code + ", client= " + client.getCin()+" "+ client.getNom()+" "+client.getPrenom() + ", vehicule=" + vehicule.getMatricule().toString() + ", dateDebut=" + formatter.format(dateDebut) + ", dateFin=" + formatter.format(dateFin) + ", chauffeur=" + chauffeur
                 + ", prop=" + prop + ", typePaiement=" + typePaiement + "]";
     }
 //dans la classe location-->methode afficherContrat()
@@ -176,9 +177,9 @@ public class Location implements Serializable {
 
     public double calculeMontantTotal() {
         //calculer la difference entre les dates en ms 
-        long diff = dateFin.getTime() - dateDebut.getTime();
+        long diff = Math.abs(dateFin.getTime() - dateDebut.getTime());
         //convertir la difference en jours
-        int dureeJours = (int) diff / (24 * 60 * 60 * 1000);
+       int dureeJours=(int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
 
         return dureeJours * vehicule.getPrixLocationParJour();
     }

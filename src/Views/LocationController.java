@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Main;
+package Views;
 
 import classes.Client;
 import classes.Location;
@@ -16,8 +16,6 @@ import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
@@ -93,12 +91,22 @@ public class LocationController implements Initializable {
             gl = new GestionLocation();
             listeLocation.getItems().addAll(gl.listeLocation());
 
-            chauffeurField.setValue("non");
+            chauffeurField.setValue("Chauffeur");
             chauffeurField.getItems().addAll("oui", "non");
+            clientField.setValue("Client");
+            vehiculeField.setValue("Vehicule");
             GestionClient gc = new GestionClient();
-            clientField.getItems().addAll(gc.listeClient());
+            for (int i = 0; i < gc.listeClient().size(); i++) {
+
+                clientField.getItems().add(gc.listeClient().get(i).getCin());
+            }
+
             GestionVehicule gv = new GestionVehicule();
-            vehiculeField.getItems().addAll(gv.listeVehicule());
+            for (int i = 0; i < gv.listeVehicule().size(); i++) {
+                if (gv.listeVehicule().get(i).isDisponible()) {
+                    vehiculeField.getItems().add(gv.listeVehicule().get(i).getMatricule().toString());
+                }
+            }
 
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
@@ -109,9 +117,10 @@ public class LocationController implements Initializable {
 
     public void AjouterLocation() throws IOException, ClassNotFoundException {
         Location l = new Location();
-
-        l.setClient((Client) clientField.getValue());
-        l.setVehicule((Vehicule) vehiculeField.getValue());
+        GestionVehicule gv = new GestionVehicule();
+        GestionClient gc = new GestionClient();
+        l.setClient((Client) gc.recherche((int) clientField.getValue()));
+        l.setVehicule((Vehicule) gv.recherche((String) vehiculeField.getValue()));
         l.setProp(Float.parseFloat(pleinField.getText()));
         l.setTypePaiement(typePField.getText());
         l.setDateDebut(new Date(dateDebField.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));

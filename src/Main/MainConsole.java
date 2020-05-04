@@ -16,8 +16,6 @@ import gestionClasses.GestionClient;
 import gestionClasses.GestionLocation;
 import gestionClasses.GestionParking;
 import gestionClasses.GestionVehicule;
-import java.awt.Desktop;
-import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -28,7 +26,6 @@ public class MainConsole {
      */
     public static void main(String[] args) throws IOException, ClassNotFoundException, MatriculeException, DocumentException, ClientException {
 
-        //launch(args);
         int choix = 0;
         Scanner sc = new Scanner(System.in);
         do {
@@ -77,7 +74,7 @@ public class MainConsole {
                                 if (gc.recherche(c) != null) {
                                     System.out.println(gc.recherche(c).toString());
                                 } else {
-                                    System.out.println("Client Introuvable");
+                                    System.out.println("Client Introuvable veuillez réessayer");
                                 }
                                 break;
                             case 5:
@@ -136,7 +133,7 @@ public class MainConsole {
                                 if (gv.recherche(m) != null) {
                                     System.out.println(gv.recherche(m).toString());
                                 } else {
-                                    System.out.println("Vehicule Introuvable");
+                                    System.out.println("Vehicule Introuvable veuillez réessayer");
                                 }
                                 break;
                             case 5:
@@ -187,14 +184,15 @@ public class MainConsole {
                     break;
                 case 3:
                     int choixL = 0;
-                    while (choixL != 6) {
+                    while (choixL != 7) {
                         System.out.println("-----Gestion des Locations----");
                         System.out.println("Ajouter Location: tapez 1");
                         System.out.println("Supprimer Location : tapez 2");
                         System.out.println("Liste des Locations : tapez 3");
                         System.out.println("Recherche Location : tapez 4");
                         System.out.println("Imprimer Contract : tapez 5");
-                        System.out.println("RETOUR : tapez 6");
+                        System.out.println("Liste des clients qui ont dépassé le deadline  : tapez 6");
+                        System.out.println("RETOUR : tapez 7");
                         choixL = sc.nextInt();
                         GestionLocation gl = new GestionLocation();
 
@@ -221,18 +219,27 @@ public class MainConsole {
                                 if (gl.recherche(c) != null) {
                                     System.out.println(gl.recherche(c).toString());
                                 } else {
-                                    System.out.println("Location Introuvable");
+                                    System.out.println("Location Introuvable veuillez réessayer");
                                 }
                                 break;
-                            case 5:  System.out.println("donner le code de location");
-                                Location l=gl.recherche(sc.nextInt());
+                            case 5:
+                                System.out.println("donner le code de location");
+                                Location l = gl.recherche(sc.nextInt());
                                 if (l != null) {
                                     l.afficherContrat();
                                 } else {
-                                    System.out.println("Location Introuvable");
+                                    System.out.println("Location Introuvable veuillez réessayer");
                                 }
                                 break;
                             case 6:
+                                for (int i = 0; i < gl.alerte().size(); i++) {
+                                    System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------------|");
+                                    System.out.println(gl.alerte().get(i).toString());
+                                }
+                                System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------------|");
+                                break;
+
+                            case 7:
                                 break;
                         }
                     }
@@ -279,7 +286,7 @@ public class MainConsole {
                                 if (gp.recherche(code) != null) {
                                     System.out.println(gp.recherche(code).toString());
                                 } else {
-                                    System.out.println("Parking Introuvable");
+                                    System.out.println("Parking Introuvable veuillez réessayer");
                                 }
                                 break;
                             case 5:
@@ -290,10 +297,25 @@ public class MainConsole {
                                 if (parking != null) {
                                     System.out.println("la moyenne de prix de ce parking = " + parking.moyennePrix());
                                 } else {
-                                    System.out.println("Parking Introuvable");
+                                    System.out.println("Parking Introuvable veuillez réessayer");
                                 }
                                 break;
                             case 6:
+                                System.out.println("donner le numéro parking du groupement");
+
+                                Parking p1 = gp.recherche(sc.nextInt());
+                                System.out.println("donner le numéro du premier parking ");
+                                Parking p2 = gp.recherche(sc.nextInt());
+                                System.out.println("donner le numéro du deuxieme parking ");
+                                Parking p3 = gp.recherche(sc.nextInt());
+                                if (p1 != null && p2 != null && p3 != null) {
+                                    gp.fusionner(p2, p3, p1);
+                                } else {
+                                    System.out.println("Numeros invalides veuillez réessayer");
+                                }
+
+                                break;
+                            case 7:
                                 System.out.println("donner le numéro parking à vider");
 
                                 Parking pvide = gp.recherche(sc.nextInt());
@@ -305,22 +327,7 @@ public class MainConsole {
                                     gp.distribuer(pvide, pcat1, pcat2);
 
                                 } else {
-                                    System.out.println("Numeros invalides");
-                                }
-
-                                break;
-                            case 7:
-                                System.out.println("donner le numéro parking du groupement");
-
-                                Parking p1 = gp.recherche(sc.nextInt());
-                                System.out.println("donner le numéro du premier parking ");
-                                Parking p2 = gp.recherche(sc.nextInt());
-                                System.out.println("donner le numéro du deuxieme parking ");
-                                Parking p3 = gp.recherche(sc.nextInt());
-                                if (p1 != null && p2 != null && p3 != null) {
-                                    gp.fusionner(p2, p3, p1);
-                                } else {
-                                    System.out.println("Numeros invalides");
+                                    System.out.println("Numeros invalides veuillez réessayer");
                                 }
                                 break;
                             case 8:
@@ -333,7 +340,7 @@ public class MainConsole {
                                     if (v != null) {
                                         pajout.ajouterVehicule(v);
                                     } else {
-                                        System.out.println("Vehicule Introuvable");
+                                        System.out.println("Vehicule Introuvable veuillez réessayer");
                                     }
 
                                 } else {
@@ -350,7 +357,7 @@ public class MainConsole {
                                     if (v != null) {
                                         psupp.supprimerVehicule(v);
                                     } else {
-                                        System.out.println("Vehicule Introuvable");
+                                        System.out.println("Vehicule Introuvable veuillez réessayer");
                                     }
 
                                 } else {

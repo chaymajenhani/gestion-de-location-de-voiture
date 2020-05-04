@@ -3,6 +3,7 @@ package classes;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class Vehicule implements Serializable {
 
@@ -43,6 +44,8 @@ public class Vehicule implements Serializable {
 
     public Vehicule() {
        nbLocation=0;
+       disponible=false;
+       idParking=-1;
       
     }
 
@@ -129,10 +132,10 @@ public class Vehicule implements Serializable {
     @Override
     public String toString() {
          SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); 
-        return "[matricule=" + matricule.toString() + ", dateEntree=" + formatter.format(dateEntree)
+        return "matricule=" + matricule.toString() + ", dateEntree=" + formatter.format(dateEntree)
                 + ", prixLocationParJour=" + prixLocationParJour + ", nbLocation=" + nbLocation + ", disponible="
                 + disponible + ", couleur=" + couleur + ", marque=" + marque + ", categorie="
-                + categorie + ", kilometrage=" + kilometrage + "]";
+                + categorie + ", kilometrage=" + kilometrage;
     }
 
     public int calculerAge() {
@@ -140,8 +143,8 @@ public class Vehicule implements Serializable {
          //calculer la difference entre les dates en ms 
         long diff = auj.getTime() - dateEntree.getTime();
         //convertir la difference en jours
-        int ageJours=(int) diff / (24 * 60 * 60 * 1000);
-        
+        int ageJours=(int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+       
         return ageJours;
     }
 

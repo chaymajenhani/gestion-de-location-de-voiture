@@ -28,8 +28,8 @@ public class Client implements Serializable {
 public Client(){}
     @Override
     public String toString() {
-        return "[ cin=" + cin + ", nom=" + nom + ", prenom=" + prenom + ", adresse=" + adresse + ", tel=" + tel
-                + ", numPermis=" + numPermis + " ]";
+        return " cin=" + cin + ", nom=" + nom + ", prenom=" + prenom + ", adresse=" + adresse + ", tel=" + tel
+                + ", numPermis=" + numPermis ;
 
     }
 

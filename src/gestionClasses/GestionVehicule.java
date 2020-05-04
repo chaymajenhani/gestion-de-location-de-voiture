@@ -65,7 +65,7 @@ public class GestionVehicule {
     public void modifier(Vehicule v) throws IOException {
         //parcourir la liste et modifer l'objet par les nouveaux donnees d'objet qui a le meme matricule
         for (int i = 0; i < vehicules.size(); i++) {
-            if (vehicules.get(i).getMatricule().toString().equals(v.getMatricule())) {
+            if (vehicules.get(i).getMatricule().toString().equals(v.getMatricule().toString())) {
                 vehicules.set(i, v);
                 sauvgarde();
             }
@@ -110,19 +110,11 @@ public class GestionVehicule {
         int numE = sc.nextInt();
         Matricule mat = new Matricule(pays, serie, numE);
         v.setMatricule(mat);
-        System.out.println("date Entree");
+        System.out.println("date Entree (mm/jj/aaaa)");
         v.setDateEntree(new Date(sc.next()));
         System.out.println("prix de location par jour");
         v.setPrixLocationParJour(sc.nextDouble());
-        System.out.println("loué (oui/non)");
-        if (sc.next().equals("oui")) {
-            v.setDisponible(true);
-            System.out.println("numero de parking");
-            v.setIdParking(sc.nextInt());
-        } else {
-            v.setDisponible(false);
-            v.setIdParking(-1);
-        }
+
         System.out.println("couleur");
         v.setCouleur(sc.next());
         System.out.println("categorie");
@@ -131,8 +123,11 @@ public class GestionVehicule {
         v.setMarque(sc.next());
         System.out.println("kilometrage");
         v.setKilometrage(sc.nextInt());
-        System.out.println("numero de parking");
-        v.setIdParking(sc.nextInt());
+
+        v.setDisponible(true);
+
+        v.setIdParking(-1);
+
         return v;
     }
 
@@ -150,15 +145,18 @@ public class GestionVehicule {
         return listTrieCat;
     }
 
-    public TreeMap<String, Integer> trieAge() {
-        HashMap<String, Integer> map = new HashMap<>();
-        TreeMap<String, Integer> mapTriee = new TreeMap<>();
-        for (int i = 0; i < vehicules.size(); i++) {
-            map.put(vehicules.get(i).toString(), vehicules.get(i).calculerAge());
+    public List<Vehicule> trieAge() {
+        List<Vehicule> listTrieAge = vehicules;
+        //trier la liste de vehicules selon l'age par l'implementation de la methode compare de l'interface Comparator
+        Collections.sort(listTrieAge, new Comparator<Vehicule>() {
+            @Override
+            public int compare(Vehicule v1, Vehicule v2) {
+                //comparer l'age de deux vehicules puis les reorganiser dans la liste selon l'age par la methode sort 
+                return Integer.compare(v2.calculerAge(), v1.calculerAge());
 
-        }
-        mapTriee.putAll(map);
-        return mapTriee;
+            }
+        });
+        return listTrieAge;
 
     }
 
@@ -170,8 +168,9 @@ public class GestionVehicule {
             //rechercher le vehicule qui a le  plus grand nombre de location
             if (vehicules.get(i).getNbLocation() > max) {
                 max = vehicules.get(i).getNbLocation();
+                indiceMax = i;
             }
-            indiceMax = i;
+
         }
         return vehicules.get(indiceMax);
 
@@ -185,8 +184,9 @@ public class GestionVehicule {
             //recherhcer le vehicule qui a le plus grand age
             if (vehicules.get(i).calculerAge() > max) {
                 max = vehicules.get(i).calculerAge();
+                indiceMax = i;
             }
-            indiceMax = i;
+
         }
         //retourner le vehicule le plus ancien
         return vehicules.get(indiceMax);
@@ -213,7 +213,6 @@ public class GestionVehicule {
         for (int i = 0; i < vehicules.size(); i++) {
             //ajouter le vehicule non disponible 
             if (vehicules.get(i).isDisponible() == false) {
-            } else {
                 liste.add(vehicules.get(i));
             }
 

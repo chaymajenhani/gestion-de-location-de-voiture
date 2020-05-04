@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+  <AnchorPane prefHeight="583.0" prefWidth="938.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Views.LocationController">
+      <children>
+            <Label layoutX="28.0" layoutY="25.0" prefHeight="28.0" prefWidth="305.0" text="Liste des Locations">
+                <font>
+                    <Font name="System Bold Italic" size="19.0" />
+                </font>
+            </Label>
+            <TableView fx:id="listeLocation" layoutX="28.0" layoutY="53.0" prefHeight="312.0" prefWidth="892.0">
+                <columns>
+                    <TableColumn fx:id="CodeCol" prefWidth="53.0" text="Code" />
+                    <TableColumn fx:id="clientCol" prefWidth="116.0" text="Client" />
+                    <TableColumn fx:id="vehiculeCol" prefWidth="118.0" text="Vehicule" />
+                    <TableColumn fx:id="dateDebCol" prefWidth="123.0" text="Date de debut" />
+                    <TableColumn fx:id="dateFinCol" prefWidth="116.0" text="Date fin" />
+                    <TableColumn fx:id="chauffeurCol" prefWidth="102.0" text="Chauffeur" />
+            <TableColumn fx:id="pleinCol" prefWidth="133.0" text="Plein" />
+            <TableColumn fx:id="typePCol" prefWidth="130.0" text="Type de paiement" />
+                </columns>
+             
+                        </TableView>
+              <Button fx:id="ajoutloc" layoutX="383.0" layoutY="477.0" mnemonicParsing="false" onAction="#AjouterLocation" text="Ajouter une nouvelle location" />
+      <ComboBox fx:id="clientField" layoutX="95.0" layoutY="395.0" prefHeight="25.0" prefWidth="99.0" />
+      <DatePicker fx:id="dateDebField" layoutX="330.0" layoutY="395.0" prefHeight="25.0" prefWidth="99.0" promptText="date Debut" />
+      <ComboBox fx:id="vehiculeField" layoutX="217.0" layoutY="395.0" prefHeight="25.0" prefWidth="99.0" />
+      <DatePicker fx:id="dateFinField" layoutX="444.0" layoutY="395.0" prefHeight="25.0" prefWidth="99.0" promptText="Date Fin" />
+      <ComboBox fx:id="chauffeurField" layoutX="558.0" layoutY="395.0" prefHeight="25.0" prefWidth="99.0" />
+      <TextField fx:id="pleinField" layoutX="678.0" layoutY="395.0" prefHeight="25.0" prefWidth="99.0" promptText="plein" />
+      <TextField fx:id="typePField" layoutX="808.0" layoutY="395.0" prefHeight="25.0" prefWidth="99.0" promptText="type de paiement" />
+      </children>
+  </AnchorPane>

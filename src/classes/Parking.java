@@ -1,6 +1,7 @@
 package classes;
 
 import gestionClasses.GestionParking;
+import gestionClasses.GestionVehicule;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;
@@ -60,13 +61,18 @@ public class Parking implements Serializable {
 
     public void ajouterVehicule(Vehicule v) throws IOException, ClassNotFoundException {
         listeVehicule.add(v);
+        capaciteAct++;
         //sauvgarder les donnees dans le fichier
         GestionParking gp = new GestionParking();
+        GestionVehicule gv=new GestionVehicule();
+        v.setIdParking(this.id);
+        gv.modifier(v);
         gp.modifier(this);
     }
 
     public void vider() throws IOException, ClassNotFoundException {
         listeVehicule.clear();
+        capaciteAct=0;
         //sauvgarder les donnees dans le fichier
         GestionParking gp = new GestionParking();
         gp.modifier(this);
@@ -77,12 +83,15 @@ public class Parking implements Serializable {
         capaciteAct--;
         //sauvgarder les donnees dans le fichier
         GestionParking gp = new GestionParking();
+        GestionVehicule gv=new GestionVehicule();
+        v.setIdParking(-1);
+        gv.modifier(v);
         gp.modifier(this);
     }
 
     @Override
     public String toString() {
-        return "[Id= " + id + ", capacité Actuelle=" + capaciteAct + ", capacoté maximale=" + capaciteMax + "]";
+        return "Id= " + id + ", capacité Actuelle=" + capaciteAct + ", capacoté maximale=" + capaciteMax ;
     }
 
     public void afficherVehicules() {

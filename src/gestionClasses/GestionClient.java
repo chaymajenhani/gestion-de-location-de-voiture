@@ -51,8 +51,8 @@ public class GestionClient {
         if (recherche(c.getCin()) != null) {
             System.out.println("Client existe deja");
         } else {
-             clients.add(c);
-             sauvgarde();
+            clients.add(c);
+            sauvgarde();
             System.out.println("clienta été ajouté avec success");
 
         }
@@ -65,17 +65,16 @@ public class GestionClient {
                 clients.set(i, c);
                 sauvgarde();
             }
-           
+
         }
-         
-        
+
     }
 
 //supprimer un objet de la liste 
     public void supprimer(Client c) throws IOException {
-         clients.remove(c);
-         sauvgarde();
-            System.out.println("clienta été supprimé avec success");
+        clients.remove(c);
+        sauvgarde();
+        System.out.println("clienta été supprimé avec success");
     }
 
     //methode qui retourne un objet client s'il existe sinon null
@@ -97,21 +96,21 @@ public class GestionClient {
 
         Scanner sc = new Scanner(System.in);
         System.out.println("donner les informations du clients");
-        Client cl=new Client();
+        Client cl = new Client();
         System.out.println("CIN: ");
         cl.setCin(sc.nextInt());
         System.out.println("Nom: ");
         cl.setNom(sc.next());
         System.out.println("Prenom: ");
         cl.setPrenom(sc.next());
-         System.out.println("Adresse: ");
+        System.out.println("Adresse: ");
         cl.setAdresse(sc.next());
         System.out.println("Tel: ");
         cl.setTel(sc.nextInt());
         System.out.println("Numero de permis: ");
         cl.setNumPermis(sc.nextInt());
         return cl;
-        
+
     }
 
 }
