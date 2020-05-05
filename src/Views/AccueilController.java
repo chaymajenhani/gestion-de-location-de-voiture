@@ -28,10 +28,14 @@ public class AccueilController implements Initializable {
      * Initializes the controller class.
      */
     @Override
+    @FXML
+    //initialiser les données de l'interface
     public void initialize(URL url, ResourceBundle rb) {
-
+        //charger la fenetre droite par les composantes de l'interface Stat
         try {
+            //chargr l'interface
             Parent root = FXMLLoader.load(getClass().getResource("Stat.fxml"));
+            //remplacer son contenu
             rightScene.getChildren().setAll(root);
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
@@ -40,14 +44,17 @@ public class AccueilController implements Initializable {
     }
 
     @FXML
+    //changer la fenetre droite par l'interface Stat au clic du bouton Accueil
     private void AccueilView() throws IOException {
 
         Parent root = FXMLLoader.load(getClass().getResource("Stat.fxml"));
+
         rightScene.getChildren().setAll(root);
 
     }
 
     @FXML
+    //changer la fenetre droite par l'interface Client au clic du bouton Gestion Client
     private void ClientView() throws IOException {
 
         Parent root = FXMLLoader.load(getClass().getResource("Client.fxml"));
@@ -56,6 +63,7 @@ public class AccueilController implements Initializable {
     }
 
     @FXML
+    //changer la fenetre droite par l'interface Location au clic du bouton Gestion Location
     private void LocationView() throws IOException {
 
         Parent root = FXMLLoader.load(getClass().getResource("Location.fxml"));
@@ -64,6 +72,7 @@ public class AccueilController implements Initializable {
     }
 
     @FXML
+    //changer la fenetre droite par l'interface Vehicule au clic du bouton Gestion Vehicule
     private void VehiculeView() throws IOException {
 
         Parent root = FXMLLoader.load(getClass().getResource("Vehicule.fxml"));
@@ -72,6 +81,7 @@ public class AccueilController implements Initializable {
     }
 
     @FXML
+    //changer la fenetre droite par l'interface Parking au clic du bouton Gestion Parking
     private void ParkingView() throws IOException {
 
         Parent root = FXMLLoader.load(getClass().getResource("Parking.fxml"));
@@ -80,6 +90,7 @@ public class AccueilController implements Initializable {
     }
 
     @FXML
+    //quitter
     private void Quitter() {
         System.exit(0);
 

@@ -25,6 +25,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
  * @author Chayma Jenhani
  */
 public class ClientController implements Initializable {
+    //declaration des composants déclarés dans le fichier FXML (interface Graphique)
 
     Label label;
     @FXML
@@ -57,8 +58,10 @@ public class ClientController implements Initializable {
     GestionClient gc;
 
     @Override
+    @FXML
     public void initialize(URL url, ResourceBundle rb) {
 
+        //lier les données dans le fichier par les colones du tableau pour les afficher
         CINColumn.setCellValueFactory(new PropertyValueFactory<Client, Integer>("cin"));
         nomColumn.setCellValueFactory(new PropertyValueFactory<Client, String>("nom"));
         prenomColumn.setCellValueFactory(new PropertyValueFactory<Client, String>("prenom"));
@@ -80,16 +83,19 @@ public class ClientController implements Initializable {
     @FXML
     public void newClientButtonPushed() throws IOException, ClassNotFoundException, ClientException {
         Client newClient = new Client(Integer.parseInt(CINField.getText()), nomField.getText(), nprenomField.getText(), adresseField.getText(), Integer.parseInt(telField.getText()), Integer.parseInt(numPermisField.getText()));
-        //Get all the items from the table as a list, then add the new person tothe list
+        //Ajouter l'objet creee dans le tableau 
         tableView.getItems().add(newClient);
         gc = new GestionClient();
+        //enregistrer l'objet dans le fichier
         gc.ajouter(newClient);
 
     }
 
     @FXML
     private void SuppClient() throws IOException, ClassNotFoundException {
-        gc=new GestionClient();
+        gc = new GestionClient();
+        //obtenir l'objet selectionné et le supprimer du fichier et du tableau
         gc.supprimer(tableView.getSelectionModel().getSelectedItem());
+        tableView.getItems().remove(tableView.getSelectionModel().getSelectedItem());
     }
 }

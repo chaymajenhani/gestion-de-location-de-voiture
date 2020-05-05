@@ -26,7 +26,7 @@ public class StatController implements Initializable {
      * Initializes the controller class.
      */
     
-    
+      //declaration des composants déclarés dans le fichier FXML (interface Graphique)
     @FXML
     private Label nbVeh;
     @FXML
@@ -44,6 +44,7 @@ public class StatController implements Initializable {
             GestionVehicule gv = new GestionVehicule();
             GestionClient gc = new GestionClient();
             GestionLocation gl = new GestionLocation();
+            //changer les valeiur des label par les données extraites du fichier
             nbCl.setText(gc.listeClient().size() + " Clients");
             nbLoc.setText(gl.listeLocation().size() + " Locations");
             nbVeh.setText(gv.listeVehicule().size() + " Vehicules");

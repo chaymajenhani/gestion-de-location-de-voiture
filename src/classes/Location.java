@@ -127,7 +127,6 @@ public class Location implements Serializable {
         return "[code=" + code + ", client= " + client.getCin() + " " + client.getNom() + " " + client.getPrenom() + ", vehicule=" + vehicule.getMatricule().toString() + ", dateDebut=" + formatter.format(dateDebut) + ", dateFin=" + formatter.format(dateFin) + ", chauffeur=" + chauffeur
                 + ", prop=" + prop + ", typePaiement=" + typePaiement + "]";
     }
-//dans la classe location-->methode afficherContrat()
 
     public void afficherContrat() throws DocumentException, IOException {
         //creer un document
@@ -135,12 +134,11 @@ public class Location implements Serializable {
         try {
             //creer un fichier pdf a partir du contenu du document
             PdfWriter pdfWriter = PdfWriter.getInstance(document, new FileOutputStream("Contrat Numero " + code + ".pdf"));
-            // pdfWriter.setViewerPreferences(PdfWriter.PageLayoutTwoColumnLeft);
             document.open();
-            Paragraph p = new Paragraph();;
-//            Image logo = new Image(".\\Views\\img\\logo.jpg");
-            //          document.add((Element) logo);
+            Paragraph p = new Paragraph();
+            //ecrire une nouvelle ligne
             p.add(Chunk.NEWLINE);
+            //ecrire le contrat par les donnees de cette location
             p.add(new Paragraph("-------------------------------------"));
             p.add(new Paragraph(" Contrat de Location de Voiture "));
             p.add(new Paragraph("-------------------------------------"));
@@ -180,9 +178,11 @@ public class Location implements Serializable {
         File f = new File("Contrat Numero " + code + ".pdf");
         //  System.out.println(f.exists());
         if (f.exists()) {
-
             // ouvrir le fichier du contrat
             Desktop.getDesktop().open(f);
+        }
+        else {
+            System.out.println("probleme de création du fichier");
         }
     }
 

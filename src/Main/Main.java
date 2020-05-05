@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     @Override
+    //charger l'interface d'accueil 
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/Views/Accueil.fxml"));
         Scene scene = new Scene(root);
@@ -25,6 +26,7 @@ public class Main extends Application {
     /**
      * @param args the command line arguments
      */
+    //executer l'application
     public static void main(String[] args) {
         launch(args);
 

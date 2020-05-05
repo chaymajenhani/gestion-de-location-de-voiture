@@ -36,6 +36,7 @@ public class LocationController implements Initializable {
     /**
      * Initializes the controller class.
      */
+    //declaration des composants déclarés dans le fichier FXML (interface Graphique)
     @FXML
     Label label;
     @FXML
@@ -78,6 +79,7 @@ public class LocationController implements Initializable {
     @FXML
     public void initialize(URL url, ResourceBundle rb) {
 
+        //lier les données dans le fichier par les colones du tableau pour les afficher
         CodeCol.setCellValueFactory(new PropertyValueFactory<>("code"));
         clientCol.setCellValueFactory(new PropertyValueFactory<>("client"));
         vehiculeCol.setCellValueFactory(new PropertyValueFactory<>("vehicule"));
@@ -89,6 +91,7 @@ public class LocationController implements Initializable {
 
         try {
             gl = new GestionLocation();
+            //initialiser le tableau par les elements qui se trouvent dans le fichier 
             listeLocation.getItems().addAll(gl.listeLocation());
 
             chauffeurField.setValue("Chauffeur");
@@ -96,14 +99,16 @@ public class LocationController implements Initializable {
             clientField.setValue("Client");
             vehiculeField.setValue("Vehicule");
             GestionClient gc = new GestionClient();
+            //initialiser la liste déroulante client par les CIN des clients
             for (int i = 0; i < gc.listeClient().size(); i++) {
 
                 clientField.getItems().add(gc.listeClient().get(i).getCin());
             }
 
             GestionVehicule gv = new GestionVehicule();
+            //initialiser la liste déroulante Vehicule par les matricules des vehicules disponible 
             for (int i = 0; i < gv.listeVehicule().size(); i++) {
-                if (gv.listeVehicule().get(i).isDisponible() && (gv.listeVehicule().get(i).getIdParking()!=-1)) {
+                if (gv.listeVehicule().get(i).isDisponible() && (gv.listeVehicule().get(i).getIdParking() != -1)) {
                     vehiculeField.getItems().add(gv.listeVehicule().get(i).getMatricule().toString());
                 }
             }
@@ -119,15 +124,17 @@ public class LocationController implements Initializable {
         Location l = new Location();
         GestionVehicule gv = new GestionVehicule();
         GestionClient gc = new GestionClient();
+        //affecter les données saisis par l'utilisateur à l'objet
         l.setClient((Client) gc.recherche((int) clientField.getValue()));
         l.setVehicule((Vehicule) gv.recherche((String) vehiculeField.getValue()));
         l.setProp(Float.parseFloat(pleinField.getText()));
         l.setTypePaiement(typePField.getText());
-        l.setDateDebut(new Date(dateDebField.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
-        l.setDateFin(new Date(dateFinField.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
-        boolean chauffeur = false;
+        //affecter et formater les date selon l'entree
+        l.setDateDebut(new Date(dateDebField.getValue().format(DateTimeFormatter.ofPattern("MM/dd/yyyy"))));
+        l.setDateFin(new Date(dateFinField.getValue().format(DateTimeFormatter.ofPattern("MM/dd/yyyy"))));
+        l.setChauffeur(false);
         if (chauffeurField.getValue().equals("oui")) {
-            chauffeur = true;
+            l.setChauffeur(true);
         }
         listeLocation.getItems().add(l);
         gl = new GestionLocation();

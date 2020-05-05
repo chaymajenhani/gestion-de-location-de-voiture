@@ -89,7 +89,8 @@ public class VehiculeController implements Initializable {
     }
 
     public void newCarButtonPushed() throws MatriculeException, IOException, ClassNotFoundException {
-        Date dateE = new Date(DateEntréeField.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        //formatter la date d'entree en MM/dd/ddyyyy
+        Date dateE = new Date(DateEntréeField.getValue().format(DateTimeFormatter.ofPattern("MM/dd/ddyyyy")));
 
         Vehicule newcar = new Vehicule();
         newcar.setMatricule(new Matricule(paysField.getText(), Integer.parseInt(serieField.getText()), Integer.parseInt(numEnregField.getText())));
@@ -99,10 +100,10 @@ public class VehiculeController implements Initializable {
         newcar.setMarque(MarqueField.getText());
         newcar.setCategorie(CatégorieField.getText());
         newcar.setKilometrage(Integer.parseInt(KilométrageField.getText()));
-
-        //Get all the items from the table as a list, then add the new car to the list
+        //Ajouter l'objet creee dans le tableau 
         tableView.getItems().add(newcar);
         GestionVehicule gv = new GestionVehicule();
+        //enregistrer l'objet dans le fichier
         gv.ajouter(newcar);
 
     }

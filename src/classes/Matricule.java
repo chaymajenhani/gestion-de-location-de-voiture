@@ -11,10 +11,11 @@ public class Matricule implements Serializable {
     private int numEnregistrement;
 
     public Matricule(String pays, int serie, int numEnregistrement) throws MatriculeException {
-        if ((serie <= 0 || numEnregistrement <= 0)) {
+        if ((serie <= 0 || numEnregistrement <= 0)
+                || (Integer.toString(serie).length() != 3 || Integer.toString(numEnregistrement).length() != 4)) {
             throw new MatriculeException("numéro ne doit pas etre négatif");
         }
-        
+
         this.pays = pays;
         this.serie = serie;
         this.numEnregistrement = numEnregistrement;
@@ -22,7 +23,7 @@ public class Matricule implements Serializable {
 
     @Override
     public String toString() {
-        return serie + pays + + numEnregistrement;
+        return serie + pays + +numEnregistrement;
     }
 
     public String getPays() {

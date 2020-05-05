@@ -30,10 +30,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 /**
  * FXML Controller class
  *
- * @author Chayma Jenhani
+ * 
  */
 public class ParkingController implements Initializable {
-
+  //declaration des composants déclarés dans le fichier FXML (interface Graphique)
     @FXML
     private TableColumn<Parking, Integer> idParkingCol;
     @FXML
@@ -41,13 +41,11 @@ public class ParkingController implements Initializable {
     @FXML
     private TableColumn<Parking, Integer> capActCol;
     @FXML
-    private TableColumn<Parking, List<?>> listeVehCol;
+    private TableColumn<Parking, ?> listeVehCol;
     @FXML
     private TextField capMaxField;
     @FXML
     private ComboBox listeVehField;
-    @FXML
-    private Button AjoutParking;
     @FXML
     private TextField idParcField;
     @FXML
@@ -69,7 +67,7 @@ public class ParkingController implements Initializable {
         try {
             GestionParking gp = new GestionParking();
             listeParking.getItems().addAll(gp.listeParking());
-
+            //si le tableau est vide , le bouton ajouter vehicule au parking est désactivée
             if (gp.listeParking().isEmpty()) {
                 AjouterVeh.setDisable(true);
             }
@@ -92,8 +90,10 @@ public class ParkingController implements Initializable {
     private void AjouterParking() throws IOException, ClassNotFoundException {
         Parking parc = new Parking();
         parc.setCapaciteMax(Integer.parseInt(capMaxField.getText()));
+        //enregistrer l'objet dans le tableau
         listeParking.getItems().add(parc);
         GestionParking gp = new GestionParking();
+        //enregistrer l'objet dans le fichier
         gp.ajouter(parc);
 
     }

@@ -119,8 +119,10 @@ public class GestionParking {
 
             }
         }
-        p1.vider();
+    
+
         System.out.println("vider");
+        System.out.println("distribution effectué avec success");
 
     }
 
@@ -136,25 +138,9 @@ public class GestionParking {
             p3.ajouterVehicule(p2.getListeVehicule().get(i));
             p2.supprimerVehicule(p2.getListeVehicule().get(i));
         }
-
+      
         System.out.println("groupement effectué avec success");
     }
 
-    /* public void repartition(List<Parking> lp) throws IOException, ClassNotFoundException {
-
-        GestionVehicule gv = new GestionVehicule();
-        List<Vehicule> listeVehicule = gv.listeVehicule();
-        for (int i = 0; i < lp.size(); i++) {
-            for (int j = 0; j < listeVehicule.size(); j++) {
-                if (lp.get(i).getId() == listeVehicule.get(j).getIdParking() && listeVehicule.get(j).isDisponible() == true) {
-                    lp.get(i).ajouterVehicule(listeVehicule.get(j));
-                } else if (lp.get(i).getId() == listeVehicule.get(j).getIdParking() && listeVehicule.get(j).isDisponible() == false) {
-                    lp.get(i).getListeVehicule().remove(j);
-                }
-
-            }
-        }
-        
-
-    }*/
+   
 }
