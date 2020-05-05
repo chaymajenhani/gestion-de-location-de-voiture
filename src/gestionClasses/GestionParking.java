@@ -106,9 +106,11 @@ public class GestionParking {
         Scanner sc = new Scanner(System.in);
         ArrayList<String> cat = new ArrayList<>();
         System.out.println("donner les categories de distribution dans le premier parking, tapez fin pour terminer la saisie");
-        while (sc.hasNextLine() && !sc.next().equals("fin")) {
-            cat.add(sc.nextLine());
+        cat.add(sc.next());
+        while (sc.hasNext() && !sc.next().equals("fin")) {
+            cat.add(sc.next());
         }
+       
         for (int i = 0; i < p1.getCapaciteAct(); i++) {
 
             if (cat.contains(p1.getListeVehicule().get(i).getCategorie())) {
@@ -119,9 +121,8 @@ public class GestionParking {
 
             }
         }
-    
 
-        System.out.println("vider");
+        p1.vider();
         System.out.println("distribution effectué avec success");
 
     }
@@ -131,16 +132,15 @@ public class GestionParking {
         for (int i = 0; i < p1.getCapaciteAct(); i++) {
             p3.ajouterVehicule(p1.getListeVehicule().get(i));
             p1.supprimerVehicule(p1.getListeVehicule().get(i));
-            i++;
+
         }
         for (int i = 0; i < p2.getCapaciteAct(); i++) {
 
             p3.ajouterVehicule(p2.getListeVehicule().get(i));
             p2.supprimerVehicule(p2.getListeVehicule().get(i));
         }
-      
+
         System.out.println("groupement effectué avec success");
     }
 
-   
 }
